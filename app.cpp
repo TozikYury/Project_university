@@ -12,9 +12,9 @@ int pow(int number, int pow)
     return result;
 }
 
-int factorial(int number)
+int fac(int number)
 {
-    int result = 1;
+    long long unsigned result = 1;
 
     for (int i = 1; i <= number; i++)
         result *= i;
@@ -24,12 +24,24 @@ int factorial(int number)
 
 int main(int argc, char const *argv[])
 {
-    int number;
+    int a;
+    double x, e, S, b;
+    do
+    {
+        cout << "Введеите числа a" << endl;
+        cin >> a;
+    } while (abs(a) < pow(10, 6));
 
-    cout << "Введите число" << endl;
-    cin >> number;
-    cout << "Число в степени 3 =" << pow(number, 3) << endl;
-    cout << "Fac = " << factorial(240) << endl;
-    
-    return 0;
+    do
+    {
+        cout << "Введите число х" << endl;
+        cin >> x;
+        cout << "Введите число e";
+        cin >> e;
+    } while (x != 0 && e > 0);
+
+    if (e < 1)
+        b = 1 / a;
+    else if (e >= 1)
+        b = fac(a);
 }

@@ -25,6 +25,7 @@ int fac(int number)
 int main(int argc, char const *argv[])
 {
     int a;
+    const int k = 0;
     double x, e, S, b;
     do
     {
@@ -41,7 +42,13 @@ int main(int argc, char const *argv[])
     } while (x != 0 && e > 0);
 
     if (e < 1)
+    {
         b = 1 / a;
+        S = ((pow(-1, k + 1) * pow(x, 2 * k)) / b * fac(2 * k));
+    }
     else if (e >= 1)
+    {
         b = fac(a);
+        S = ((pow(-1, k + 1) * pow(x, 2 * k)) / b * fac(2 * k));
+    }
 }

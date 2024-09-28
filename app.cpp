@@ -26,7 +26,8 @@ int main(int argc, char const *argv[])
 {
     int a;
     const int k = 0;
-    double x, e, S, b;
+    double hec, znam;
+    double x, e, S, b, result;
     do
     {
         cout << "Введеите числа a" << endl;
@@ -44,11 +45,29 @@ int main(int argc, char const *argv[])
     if (e < 1)
     {
         b = 1 / a;
-        S = ((pow(-1, k + 1) * pow(x, 2 * k)) / b * fac(2 * k));
+        do
+        {
+            hec = (pow(-1, k + 1) * pow(x, 2 * k));
+            znam = b * fac(2 * k);
+            result = hec / znam;
+            S+=result;
+
+        } while (abs(hec) < e || abs(znam) < e);
+
+        cout << "При e<1 \nS= " << S << endl;
     }
     else if (e >= 1)
     {
         b = fac(a);
-        S = ((pow(-1, k + 1) * pow(x, 2 * k)) / b * fac(2 * k));
+        do
+        {
+            hec = (pow(-1, k + 1) * pow(x, 2 * k));
+            znam = b * fac(2 * k);
+            result = hec / znam;
+            S+=result;
+        } while (abs(hec) < e || abs(znam) < e);
+
+        cout << "При e>=1 \nS=" << S << endl;
     }
+    // остаётся о круглить до 8 знаков.
 }

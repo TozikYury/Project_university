@@ -2,21 +2,23 @@
 
 using namespace std;
 
-int summ(int a, int b)
+int pow(int number, int pow)
 {
-    return a + b;
+    int result = 1;
+
+    for (int i = 1; i <= pow; i++)
+        result *= number;
+
+    return result;
 }
 
 int main(int argc, char const *argv[])
 {
+    int number;
 
-    int numberOne, numberTwo;
-
-    cout << "Enter number";
-    cin >> numberOne;
-    cout << "Enter number Two";
-    cin >> numberTwo;
-    cout << summ(numberOne,numberTwo)<< endl;
+    cout << "Введите число" << endl;
+    cin >> number;
+    cout << "Число в степени 3 =" << pow(number, 3)<<endl;
 
     return 0;
 }

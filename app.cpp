@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -32,7 +33,7 @@ int main(int argc, char const *argv[])
     {
         cout << "Введеите числа a" << endl;
         cin >> a;
-    } while (abs(a) < pow(10, 6));
+    } while (abs(a) >= pow(10, 6));
 
     do
     {
@@ -40,34 +41,29 @@ int main(int argc, char const *argv[])
         cin >> x;
         cout << "Введите число e";
         cin >> e;
-    } while (x != 0 && e > 0);
+    } while (x == 0 && e < 0);
 
     if (e < 1)
     {
         b = 1 / a;
-        do
         {
             hec = (pow(-1, k + 1) * pow(x, 2 * k));
             znam = b * fac(2 * k);
             result = hec / znam;
-            S+=result;
-
-        } while (abs(hec) < e || abs(znam) < e);
+            S += result;
+        }
 
         cout << "При e<1 \nS= " << S << endl;
     }
     else if (e >= 1)
     {
         b = fac(a);
-        do
-        {
-            hec = (pow(-1, k + 1) * pow(x, 2 * k));
-            znam = b * fac(2 * k);
-            result = hec / znam;
-            S+=result;
-        } while (abs(hec) < e || abs(znam) < e);
-
-        cout << "При e>=1 \nS=" << S << endl;
+        hec = (pow(-1, k + 1) * pow(x, 2 * k));
+        znam = b * fac(2 * k);
+        result = hec / znam;
+        S += result;
     }
-    // остаётся о круглить до 8 знаков.
+
+    cout << "При e>=1 \nS=" << S << endl;
 }
+// остаётся о круглить до 8 знаков.

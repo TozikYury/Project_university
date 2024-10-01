@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cmath>
 
 using namespace std;
 
@@ -15,7 +14,7 @@ int pow(int number, int pow)
 
 int fac(int number)
 {
-    long long unsigned result = 1;
+    int result = 1;
 
     for (int i = 1; i <= number; i++)
         result *= i;
@@ -23,47 +22,57 @@ int fac(int number)
     return result;
 }
 
-int main(int argc, char const *argv[])
+void summa(float x, float eps, int a)
 {
-    int a;
-    const int k = 0;
-    double hec, znam;
-    double x, e, S, b, result;
-    do
-    {
-        cout << "Введеите числа a" << endl;
-        cin >> a;
-    } while (abs(a) >= pow(10, 6));
+    double S;
+    int k = 0;
+    double func;
+    int count = 0;
 
-    do
-    {
-        cout << "Введите число х" << endl;
-        cin >> x;
-        cout << "Введите число e";
-        cin >> e;
-    } while (x == 0 && e < 0);
+    double b;
 
-    if (e < 1)
+    if (abs(a) < pow(10, 6))
     {
-        b = 1 / a;
+        if (eps >= 1)
+            b = fac(a);
+        else if (eps<1)
+            b = 1 / a;
+    }
+
+    while (true)
+    {
+        func = (pow(-1, k + 1) * pow(x, 2 * k)) / b * fac(2 * k);
+        if (abs(func) < eps)
         {
-            hec = (pow(-1, k + 1) * pow(x, 2 * k));
-            znam = b * fac(2 * k);
-            result = hec / znam;
-            S += result;
+            cout << "Fatall" << endl;
+            break;
         }
 
-        cout << "При e<1 \nS= " << S << endl;
-    }
-    else if (e >= 1)
-    {
-        b = fac(a);
-        hec = (pow(-1, k + 1) * pow(x, 2 * k));
-        znam = b * fac(2 * k);
-        result = hec / znam;
-        S += result;
-    }
+        S += func;
+        count += 1;
+        k += 1;
 
-    cout << "При e>=1 \nS=" << S << endl;
+        if (count == 0)
+            cout << "Ни одно из слагаемых не было учтено." << endl;
+        else
+        {
+            cout << "Сумма S = " << S << endl;
+            cout << "Количество слагаемых" << count << endl;
+        }
+    }
 }
-// остаётся о круглить до 8 знаков.
+
+int main(int argc, char const *argv[])
+{
+    float x, eps;
+    int a;
+    double result;
+
+    cout << "Введите значение x (x ≠ 0):" << endl;
+    cin >> x;
+    cout << "Введите значение ε (ε > 0):" << endl;
+    cin >> eps;
+    cout << "Введите значение а" << endl;
+    cin >> a;
+    summa(x, eps, a);
+}

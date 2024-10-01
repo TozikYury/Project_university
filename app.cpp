@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -20,6 +21,18 @@ int fac(int number)
         result *= i;
 
     return result;
+}
+
+double Round(double Argument, int Precision)
+{
+    double div = 1.0;
+    if (Precision < 0)
+        while (Precision++)
+            div /= 10.0;
+    else
+        while (Precision--)
+            div *= 10.0;
+    return floor(Argument * div + 0.5) / div;
 }
 
 void summa(float x, float eps, int a)
@@ -44,7 +57,7 @@ void summa(float x, float eps, int a)
         func = (pow(-1, k + 1) * pow(x, 2 * k)) / b * fac(2 * k);
         if (abs(func) < eps)
         {
-            cout << "Сумма S = " << S << endl;
+            cout << "Сумма S = " << Round(S,8) << endl;
             if (count == 0)
                 cout << "Ни одно из слагаемых не было учтено." << endl;
             else

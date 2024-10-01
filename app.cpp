@@ -42,7 +42,7 @@ void summa(float x, float eps, int a)
     while (true)
     {
         func = (pow(-1, k + 1) * pow(x, 2 * k)) / b * fac(2 * k);
-        if (abs(func) < eps)
+        if (abs(func) < eps) // вот сюда!!!!!!
         {
             cout << "Fatall" << endl;
             break;

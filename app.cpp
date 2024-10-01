@@ -35,30 +35,25 @@ void summa(float x, float eps, int a)
     {
         if (eps >= 1)
             b = fac(a);
-        else if (eps<1)
+        else if (eps < 1)
             b = 1 / a;
     }
 
     while (true)
     {
         func = (pow(-1, k + 1) * pow(x, 2 * k)) / b * fac(2 * k);
-        if (abs(func) < eps) // вот сюда!!!!!!
+        if (abs(func) < eps)
         {
-            cout << "Fatall" << endl;
+            cout << "Сумма S = " << S << endl;
+            if (count == 0)
+                cout << "Ни одно из слагаемых не было учтено." << endl;
+            else
+                cout << "Количество слагаемых" << count << endl;
             break;
         }
-
         S += func;
         count += 1;
         k += 1;
-
-        if (count == 0)
-            cout << "Ни одно из слагаемых не было учтено." << endl;
-        else
-        {
-            cout << "Сумма S = " << S << endl;
-            cout << "Количество слагаемых" << count << endl;
-        }
     }
 }
 

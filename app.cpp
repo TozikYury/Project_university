@@ -3,84 +3,100 @@
 
 using namespace std;
 
-int pow(int number, int pow)
-{
-    int result = 1;
+double power(double base, int exponent);
+int factorial(int num);
+double calc_b(int a, double e);
 
-    for (int i = 1; i <= pow; i++)
-        result *= number;
+int main() {
+    double x, e;
+    int a;
 
-    return result;
-}
+    cout << "Введите x: ";
+    cin >> x;
+    cout << "Введите e: ";
+    cin >> e;
+    cout << "Введите a: ";
+    cin >> a;
 
-int fac(int number)
-{
-    int result = 1;
-
-    for (int i = 1; i <= number; i++)
-        result *= i;
-
-    return result;
-}
-
-double Round(double Argument, int Precision)
-{
-    double div = 1.0;
-    if (Precision < 0)
-        while (Precision++)
-            div /= 10.0;
-    else
-        while (Precision--)
-            div *= 10.0;
-    return floor(Argument * div + 0.5) / div;
-}
-
-void summa(float x, float eps, int a)
-{
-    double S;
-    int k = 0;
-    double func;
-    int count = 0;
-
-    double b;
-
-    if (abs(a) < pow(10, 6))
-    {
-        if (eps >= 1)
-            b = fac(a);
-        else if (eps < 1)
-            b = 1 / a;
+    if (x == 0 || e <= 0 || a == 0 || abs(a) >= 1000000) {
+        cout << "Входные данные не соответствуют ограничениям!!!" << endl;
+        return 0;
     }
 
-    while (true)
-    {
-        func = (pow(-1, k + 1) * pow(x, 2 * k)) / b * fac(2 * k);
-        if (abs(func) < eps)
-        {
-            cout << "Сумма S = " << Round(S,8) << endl;
-            if (count == 0)
-                cout << "Ни одно из слагаемых не было учтено." << endl;
-            else
-                cout << "Количество слагаемых" << count << endl;
+    int k = 0;
+    double b = calc_b(a, e);
+    double calc = 0;
+    double sum = 0;
+    int sum_counter = 0;
+
+    while(true) {
+        if (b == 0) {
+            cout << "Ни одно из слагаемы не было учтено!!!" << endl;
+            return 0;
+        }
+        double denumenator = (b * factorial(2 * k));
+        if (denumenator == 0) {
+            cout << "При b = " << b << " и k = " << k << " функция неопределена!" << endl;
+            k++;
+            continue;
+        }
+
+        double numentar = (power(-1, k + 1) * power(x, 2 * k));
+        calc = numentar / denumenator;
+        if(abs(calc) >= e) {
+            if(sum_counter == 0) {
+                cout << "Ни одно из слагаемы не было учтено!!!" << endl;
+            }
             break;
         }
-        S += func;
-        count += 1;
-        k += 1;
+        sum += calc;
+        k++;
+        sum_counter++;
     }
+
+    cout.precision(8);
+    cout << "Сумма слагаемых: " << sum << endl;
+    cout << "Количество слагаемых: " << sum_counter << endl;
+
+    return 0;
 }
 
-int main(int argc, char const *argv[])
-{
-    float x, eps;
-    int a;
-    double result;
+double calc_b(int a, double e) {
+    if (e < 1) {
+        return 1 / a;
+    }
+    return factorial(a);
+}
 
-    cout << "Введите значение x (x ≠ 0):" << endl;
-    cin >> x;
-    cout << "Введите значение ε (ε > 0):" << endl;
-    cin >> eps;
-    cout << "Введите значение а" << endl;
-    cin >> a;
-    summa(x, eps, a);
+
+int factorial(int num) {
+    int res = 1;
+    for(int i = 1; i <= num; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+double power(double base, int exponent) {
+    if (exponent == 0) {
+        return 1.0;
+    }
+
+    double result = 1.0;
+    bool isNegativeExponent = false;
+
+    if (exponent < 0) {
+        isNegativeExponent = true;
+        exponent = -exponent;
+    }
+
+    for (int i = 0; i < exponent; ++i) {
+        result *= base;
+    }
+
+    if (isNegativeExponent) {
+        result = 1.0 / result;
+    }
+
+    return result;
 }
